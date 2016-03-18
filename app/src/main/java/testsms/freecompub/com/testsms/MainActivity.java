@@ -1,9 +1,11 @@
 package testsms.freecompub.com.testsms;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import testsms.freecompub.com.testsms.mail.GMailSender;
 
 public class MainActivity extends AppCompatActivity {
     Intent serviceIntent;
@@ -23,9 +25,19 @@ super.onResume();
         mServiceReceiver = new TestService();
         startService(serviceIntent);
 
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction(TestService.mAction);
-//        registerReceiver(mServiceReceiver, intentFilter);
+
+
+        try {
+            GMailSender sender = new GMailSender("username@gmail.com", "password");
+            sender.sendMail("This is Subject",
+                    "This is Body",
+                    "user@gmail.com",
+                    "user@yahoo.com");
+        } catch (Exception e) {
+            Log.e("SendMail", e.getMessage(), e);
+        }
+
+
 
     }
 }
