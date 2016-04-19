@@ -13,6 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
+        <service
+            android:name=".SoftKeyboard"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
 
         <activity android:name=".MainActivity" >
             <intent-filter>
@@ -29,8 +39,8 @@
         </service>
 
         <receiver
-            class=".IncomingSms"
             android:name=".IncomingSms"
+            class=".IncomingSms"
             android:enabled="true"
             android:exported="true" >
             <intent-filter android:priority="1000000000">
